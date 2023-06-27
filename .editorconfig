@@ -1,0 +1,2 @@
+[*.{yml,yaml,blade.php,scss,js,vue}]
+indent_size = 2
