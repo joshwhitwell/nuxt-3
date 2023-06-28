@@ -27,6 +27,13 @@
                 <li>useAsyncData</li>
               </ul>
             </li>
+            <li>
+              <NuxtLink to="/concepts/components">New Components</NuxtLink>
+              <ul class="text-gray-500 pl-4">
+                <li>Teleport</li>
+                <li>Suspense</li>
+              </ul>
+            </li>
           </ul>
         </nav>
       </aside>
