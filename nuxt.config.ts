@@ -2,9 +2,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
-  css: [
-    '@/assets/css/app.css',
-  ],
+  css: ["@/assets/css/app.css"],
 
   postcss: {
     plugins: {
@@ -12,4 +10,6 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-})
+
+  modules: ["@nuxtjs/eslint-module"],
+});

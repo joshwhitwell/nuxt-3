@@ -1,0 +1,7 @@
+{
+  "extends": ["@nuxt/eslint-config", "plugin:prettier/recommended"],
+  "rules": {
+    "no-unused-vars": "error",
+    "no-empty": "off"
+  }
+}
