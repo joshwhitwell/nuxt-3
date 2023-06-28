@@ -1,7 +1,7 @@
 <template>
   <div>
     <PageHeader
-      title="Data fetching"
+      title="Data Fetching"
       summary="As with Nuxt 2, there are multiple ways of handling data fetching in a component: $fetch, useFetch, and useAsyncData. These map more or less to the $http module, and fetch and asyncData hooks in Nuxt 2 respectively."
       icon="nuxt"
     />
@@ -125,7 +125,11 @@
             height="96"
           />
           <figcaption class="p-2 font-bold capitalize w-content">
-            {{ pokemonFromQuery?.name || pokemonFromQueryError?.statusCode }}
+            {{
+              !queryPokemon
+                ? "No query"
+                : pokemonFromQuery?.name || pokemonFromQueryError?.statusCode
+            }}
           </figcaption>
         </template>
       </figure>
@@ -154,7 +158,7 @@ async function getBulbasaur() {
 }
 
 // useFetch
-// notice that useFetch always wraps the response in an additional data layer
+// Notice that useFetch always wraps the response in an additional data layer.
 const { data: ivysaur } = await useFetch(
   "https://pokeapi.co/api/v2/pokemon/ivysaur"
 );
@@ -174,6 +178,7 @@ const {
   pending: pokemonFromQueryPending,
 } = await useAsyncData(
   "pokemonFromQuery",
+  // Callback allows us to transform the request or response before returning.
   () => $fetch(`https://pokeapi.co/api/v2/pokemon/${route?.query?.pokemon}`),
   { watch: [queryPokemon] }
 );

@@ -1,33 +1,58 @@
 <template>
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 pt-44">
-    <div class="grid grid-cols-10 gap-x-8">
-      <aside class="col-start-1 col-end-3">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-24 md:py-44">
+    <div class="grid md:grid-cols-10 gap-x-8 gap-y-12">
+      <aside class="md:col-start-1 md:col-end-3">
         <nav>
-          <ul>
+          <ul class="flex flex-col gap-y-3">
             <li>
               <NuxtLink to="/">Overview</NuxtLink>
             </li>
             <li>
+              <NuxtLink to="/concepts/composition-api"
+                >Composition API</NuxtLink
+              >
+              <ul class="text-gray-500 pl-4">
+                <li>Props</li>
+                <li>Ref</li>
+                <li>Computed</li>
+                <li>Provide</li>
+                <li>Custom Composables</li>
+              </ul>
+            </li>
+            <li>
               <NuxtLink to="/concepts/data-fetching">Data Fetching</NuxtLink>
+              <ul class="text-gray-500 pl-4">
+                <li>$fetch</li>
+                <li>useFetch</li>
+                <li>useAsyncData</li>
+              </ul>
             </li>
           </ul>
         </nav>
       </aside>
-      <main class="col-start-3 col-end-10">
+      <main class="md:col-start-3 md:col-end-10">
         <NuxtPage />
-      </main >
+      </main>
     </div>
   </div>
 </template>
 
 <script setup>
+const { mouseX, mouseY } = useMouseTracker();
+
+provide(
+  "providedDependency",
+  "This message was provided by app.vue and injected into this component directly."
+);
+provide("appMousePosition", { mouseX, mouseY });
+
 useHead({
-  title: 'Nuxt 3',
+  title: "Nuxt 3",
   meta: [
-    { name: 'description', content: 'A demo site for learning about Nuxt 3.' }
+    { name: "description", content: "A demo site for learning about Nuxt 3." },
   ],
   bodyAttrs: {
-    class: 'bg-black text-gray-200 font-sans antialiased'
+    class: "bg-black text-gray-200 font-sans antialiased",
   },
-})
+});
 </script>
