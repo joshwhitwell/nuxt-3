@@ -7,6 +7,9 @@
             <li>
               <NuxtLink to="/">Overview</NuxtLink>
             </li>
+            <li>
+              <NuxtLink to="/concepts/data-fetching">Data Fetching</NuxtLink>
+            </li>
           </ul>
         </nav>
       </aside>
