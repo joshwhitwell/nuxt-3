@@ -31,7 +31,8 @@
               <NuxtLink to="/concepts/components">New Components</NuxtLink>
               <ul class="text-gray-500 pl-4">
                 <li>Teleport</li>
-                <li>Suspense</li>
+                <li>Suspense (Not Really)</li>
+                <li>V-bind Style</li>
               </ul>
             </li>
           </ul>

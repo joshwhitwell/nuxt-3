@@ -1,7 +1,7 @@
 <template>
   <div>
     <PageHeader
-      title="New Components"
+      title="Components"
       summary="Vue 3 comes with (at least) two
     new built-in components worth mentioning: Teleport and Suspense. Teleport allows moving a
     template from one DOM element to another conditionally (e.g., writing a modal’s logic and markup
@@ -47,58 +47,42 @@
       <legend class="text-xl">Suspense</legend>
 
       <Suspense>
-        <!-- Default slot of Suspense must be a single node. -->
-        <div class="flex gap-4 flex-wrap">
-          <figure
-            v-if="charmander?.id"
-            class="border-2 border-gray-900 rounded flex flex-col justify-center items-center w-[200px] h-[200px]"
-          >
-            <img
-              v-if="charmander?.sprites?.front_default"
-              :src="charmander?.sprites?.front_default"
-              :alt="charmander.name"
-              width="96"
-              height="96"
+        <template #default>
+          <div class="flex gap-4 flex-wrap">
+            <SuspensiblePokemonCard
+              :pokemon-id="pokemonIds[0]"
+              :timeout="1000"
             />
-            <figcaption class="p-2 font-bold capitalize w-content">
-              {{ charmander.name }}
-            </figcaption>
-          </figure>
-          <figure
-            v-if="charmeleon?.id"
-            class="border-2 border-gray-900 rounded flex flex-col justify-center items-center w-[200px] h-[200px]"
-          >
-            <img
-              v-if="charmeleon?.sprites?.front_default"
-              :src="charmeleon?.sprites?.front_default"
-              :alt="charmeleon.name"
-              width="96"
-              height="96"
+            <SuspensiblePokemonCard
+              :pokemon-id="pokemonIds[1]"
+              :timeout="2000"
             />
-            <figcaption class="p-2 font-bold capitalize w-content">
-              {{ charmeleon.name }}
-            </figcaption>
-          </figure>
-          <figure
-            v-if="charizard?.id"
-            class="border-2 border-gray-900 rounded flex flex-col justify-center items-center w-[200px] h-[200px]"
-          >
-            <img
-              v-if="charizard?.sprites?.front_default"
-              :src="charizard?.sprites?.front_default"
-              :alt="charizard.name"
-              width="96"
-              height="96"
+            <SuspensiblePokemonCard
+              :pokemon-id="pokemonIds[2]"
+              :timeout="3000"
             />
-            <figcaption class="p-2 font-bold capitalize w-content">
-              {{ charizard.name }}
-            </figcaption>
-          </figure>
-        </div>
+          </div>
+        </template>
 
-        <!-- Loading state will be shown until all async dependencies have resolved -->
         <template #fallback> Loading... </template>
       </Suspense>
+
+      <button
+        class="text-nuxt border-2 border-nuxt font-bold px-3 py-1 rounded block mt-4"
+        @click="changePokemon"
+      >
+        Change Pokémon
+      </button>
+    </fieldset>
+
+    <fieldset class="border-2 border-gray-800 rounded p-4 mb-8">
+      <legend class="text-xl">V-bind: Style</legend>
+      <button
+        class="text-nuxt border-2 border-nuxt font-bold px-3 py-1 rounded block v-bind"
+        @click="changeColor"
+      >
+        Change Color
+      </button>
     </fieldset>
   </div>
 </template>
@@ -106,8 +90,33 @@
 <script setup>
 const modalIsOpen = ref(false);
 
-const [{ data: charmander }, { data: charmeleon }] = await Promise.all([
-  useFetch("https://pokeapi.co/api/v2/pokemon/charmander"),
-  useFetch("https://pokeapi.co/api/v2/pokemon/charmeleon"),
-]);
+const color = ref("#00DC82");
+function changeColor() {
+  const colors = [
+    "#dc2626",
+    "#ea580c",
+    "#16a34a",
+    "#0891b2",
+    "#9333ea",
+    "#e11d48",
+  ];
+
+  color.value = colors[Math.floor(Math.random() * 6)];
+}
+
+const pokemonIds = ref([4, 5, 6]);
+function changePokemon() {
+  pokemonIds.value = [
+    Math.floor(Math.random() * 999),
+    Math.floor(Math.random() * 999),
+    Math.floor(Math.random() * 999),
+  ];
+}
 </script>
+
+<style>
+.v-bind {
+  border-color: v-bind(color);
+  color: v-bind(color);
+}
+</style>
